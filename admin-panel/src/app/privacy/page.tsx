@@ -1,7 +1,6 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowLeft, Mail, ShieldCheck, Heart, Info, Globe, Eye, Server, Award } from "lucide-react";
+import { Mail, ShieldCheck, Heart, Info, Globe, Eye, Server, Award } from "lucide-react";
 import styles from "./privacy.module.css";
 
 export default function PrivacyPolicy() {
@@ -12,11 +11,6 @@ export default function PrivacyPolicy() {
       <div className={styles.container}>
         {/* Navigation / Header */}
         <header className={styles.header}>
-          <Link href="/" className={styles.backLink}>
-            <ArrowLeft size={18} />
-            <span className={styles.privacyTextMobile}>Back</span>
-            <span className={styles.privacyTextFull}>Back to Dashboard</span>
-          </Link>
           <div className={styles.logoRow}>
             <img src="/logo.png" alt="Trendy Baba Logo" className={styles.logoImage} />
             <span className={styles.logoText}>Trendy Baba Security</span>

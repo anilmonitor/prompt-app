@@ -39,6 +39,13 @@ interface PromptItem {
 }
 
 export default function AdminDashboard() {
+  // Auth State
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [isCheckingAuth, setIsCheckingAuth] = useState<boolean>(true);
+  const [loginUsername, setLoginUsername] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+  const [loginError, setLoginError] = useState("");
+
   // Form State
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
@@ -54,12 +61,31 @@ export default function AdminDashboard() {
 
   // UI State
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState("light");
   const [prompts, setPrompts] = useState<PromptItem[]>([]);
   
   // Filter States
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
+
+  useEffect(() => {
+    const authStatus = sessionStorage.getItem("admin_authenticated");
+    if (authStatus === "true") {
+      setIsAuthenticated(true);
+    }
+    setIsCheckingAuth(false);
+  }, []);
+
+  const handleLoginSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (loginUsername === "admin" && loginPassword === "trendybaba123") {
+      setIsAuthenticated(true);
+      sessionStorage.setItem("admin_authenticated", "true");
+      setLoginError("");
+    } else {
+      setLoginError("Invalid username or password");
+    }
+  };
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
@@ -180,6 +206,65 @@ export default function AdminDashboard() {
     
     return matchesSearch && matchesCategory;
   });
+
+  if (isCheckingAuth) {
+    return null;
+  }
+
+  if (!isAuthenticated) {
+    return (
+      <div className={styles.loginWrapper}>
+        <div className={styles.loginCard}>
+          <div className={styles.loginHeader}>
+            <div className={styles.loginLogoRow}>
+              <img src="/logo.png" alt="Trendy Baba Logo" className={styles.loginLogoImage} />
+              <h1>Trendy Baba Admin</h1>
+            </div>
+            <p>Please enter your credentials to access the admin panel</p>
+          </div>
+
+          <form onSubmit={handleLoginSubmit} className={styles.loginForm}>
+            {loginError && (
+              <div className={styles.loginErrorMsg}>
+                <AlertCircle size={16} />
+                <span>{loginError}</span>
+              </div>
+            )}
+
+            <div className={styles.formGroup}>
+              <label htmlFor="loginUsername">Username</label>
+              <input
+                id="loginUsername"
+                type="text"
+                className={styles.input}
+                placeholder="Enter username"
+                value={loginUsername}
+                onChange={(e) => setLoginUsername(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className={styles.formGroup}>
+              <label htmlFor="loginPassword">Password</label>
+              <input
+                id="loginPassword"
+                type="password"
+                className={styles.input}
+                placeholder="Enter password"
+                value={loginPassword}
+                onChange={(e) => setLoginPassword(e.target.value)}
+                required
+              />
+            </div>
+
+            <button type="submit" className={styles.button}>
+              Log In
+            </button>
+          </form>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.pageWrapper}>
