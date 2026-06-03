@@ -7,6 +7,25 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:686761540478:android:d0f8407452686e7746912f",
+        "android_client_info": {
+          "package_name": "com.anilmonitor.trendybaba.ai.prompt"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBntjM4OQMz9oFYc5RL5CeB-mYix7b85sg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:686761540478:android:237677fb202cabd746912f",
         "android_client_info": {
           "package_name": "com.example.prompt_gallery_app"

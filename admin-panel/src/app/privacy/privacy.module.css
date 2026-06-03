@@ -1,0 +1,369 @@
+/* privacy.module.css */
+
+.wrapper {
+  min-height: 100vh;
+  background-color: var(--background);
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.04) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(2, 132, 199, 0.02) 0px, transparent 50%);
+  color: var(--foreground);
+  transition: background 0.3s ease, color 0.3s ease;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--surface-border);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+}
+
+.backLink {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--primary);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.backLink:hover {
+  color: var(--primary-hover);
+  transform: translateX(-3px);
+}
+
+.privacyTextMobile {
+  display: none;
+}
+
+.logoRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logoImage {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.logoText {
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: -0.25px;
+}
+
+/* Document content */
+.document {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: 28px;
+  padding: 3.5rem;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.docHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.badgeRow {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.badge {
+  background: rgba(2, 132, 199, 0.08);
+  border: 1px solid rgba(2, 132, 199, 0.15);
+  color: var(--primary);
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 0.35rem 0.65rem;
+  border-radius: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.docHeader h1 {
+  font-size: 2.25rem;
+  font-weight: 900;
+  letter-spacing: -0.75px;
+  background: linear-gradient(135deg, var(--foreground) 30%, var(--primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-top: 0.25rem;
+}
+
+.lastUpdated {
+  font-size: 0.9rem;
+  opacity: 0.6;
+}
+
+.divider {
+  height: 1px;
+  background: var(--surface-border);
+  width: 100%;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.introText {
+  font-size: 1.05rem !important;
+  line-height: 1.7;
+}
+
+.section h2 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  margin-top: 1rem;
+  letter-spacing: -0.25px;
+  color: var(--primary);
+}
+
+.section p {
+  font-size: 0.975rem;
+  line-height: 1.7;
+  opacity: 0.85;
+}
+
+.section ul {
+  padding-left: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.section li {
+  font-size: 0.975rem;
+  line-height: 1.6;
+  opacity: 0.85;
+}
+
+.section code {
+  background: var(--input-bg);
+  border: 1px solid var(--surface-border);
+  padding: 0.15rem 0.4rem;
+  border-radius: 6px;
+  font-family: monospace;
+  font-size: 0.9rem;
+}
+
+/* Feature Grid */
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.featureCard {
+  background: var(--input-bg);
+  border: 1px solid var(--surface-border);
+  border-radius: 20px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: all 0.2s ease;
+}
+
+.featureCard:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary);
+}
+
+.featureIcon {
+  color: var(--primary);
+  width: 28px;
+  height: 28px;
+  background: rgba(2, 132, 199, 0.08);
+  padding: 0.5rem;
+  border-radius: 10px;
+  box-sizing: content-box;
+}
+
+.featureCard h3 {
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.featureCard p {
+  font-size: 0.875rem !important;
+  line-height: 1.6;
+  opacity: 0.7;
+}
+
+/* Provider Box */
+.providerBox {
+  background: var(--input-bg);
+  border: 1px solid var(--surface-border);
+  border-radius: 20px;
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.providerBox h3 {
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.providerBox p {
+  font-size: 0.9rem !important;
+  opacity: 0.75;
+  line-height: 1.6;
+}
+
+.extLink {
+  font-size: 0.85rem;
+  font-weight: 750;
+  color: var(--primary);
+  align-self: flex-start;
+  transition: transform 0.2s ease;
+}
+
+.extLink:hover {
+  transform: translateX(3px);
+  text-decoration: underline;
+}
+
+/* Contact Card */
+.contactCard {
+  background: var(--input-bg);
+  border: 1px solid var(--surface-border);
+  border-radius: 20px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-top: 0.5rem;
+}
+
+.mailIcon {
+  color: var(--primary);
+  background: rgba(2, 132, 199, 0.1);
+  padding: 0.75rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.contactDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.contactDetails span {
+  font-size: 0.75rem;
+  font-weight: 750;
+  opacity: 0.55;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.mailLink {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--primary);
+  transition: opacity 0.2s ease;
+}
+
+.mailLink:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  opacity: 0.5;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.love {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.heartIcon {
+  color: var(--error);
+  fill: var(--error);
+  animation: heartbeat 1.5s infinite;
+}
+
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+/* Responsiveness */
+@media (max-width: 640px) {
+  .document {
+    padding: 2rem 1.5rem;
+    border-radius: 20px;
+  }
+  
+  .docHeader h1 {
+    font-size: 1.8rem;
+  }
+  
+  .privacyTextFull {
+    display: none;
+  }
+
+  .privacyTextMobile {
+    display: inline;
+  }
+
+  .featureGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .contactCard {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .wrapper {
+    padding: 1rem 0.5rem;
+  }
+}

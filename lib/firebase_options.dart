@@ -52,7 +52,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBntjM4OQMz9oFYc5RL5CeB-mYix7b85sg',
-    appId: '1:686761540478:android:237677fb202cabd746912f',
+    appId: '1:686761540478:android:d0f8407452686e7746912f',
     messagingSenderId: '686761540478',
     projectId: 'prompt-app-4c8ad',
     storageBucket: 'prompt-app-4c8ad.firebasestorage.app',
@@ -64,7 +64,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '686761540478',
     projectId: 'prompt-app-4c8ad',
     storageBucket: 'prompt-app-4c8ad.firebasestorage.app',
-    iosBundleId: 'com.example.promptGalleryApp',
+    iosBundleId: 'com.anilmonitor.trendybaba.ai.prompt',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -73,7 +73,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '686761540478',
     projectId: 'prompt-app-4c8ad',
     storageBucket: 'prompt-app-4c8ad.firebasestorage.app',
-    iosBundleId: 'com.example.promptGalleryApp',
+    iosBundleId: 'com.anilmonitor.trendybaba.ai.prompt',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(

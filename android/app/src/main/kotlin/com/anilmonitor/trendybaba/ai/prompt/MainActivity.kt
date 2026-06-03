@@ -1,4 +1,4 @@
-package com.example.prompt_gallery_app
+package com.anilmonitor.trendybaba.ai.prompt
 
 import io.flutter.embedding.android.FlutterActivity
 
