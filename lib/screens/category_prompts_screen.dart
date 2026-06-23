@@ -24,7 +24,6 @@ class CategoryPromptsScreen extends StatelessWidget {
           stream: FirebaseFirestore.instance
               .collection('prompts')
               .where('category', isEqualTo: category)
-              .orderBy('createdAt', descending: true)
               .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
@@ -35,7 +34,20 @@ class CategoryPromptsScreen extends StatelessWidget {
               return const Center(child: CircularProgressIndicator());
             }
 
-            final prompts = snapshot.requireData.docs
+            // Sort the documents in memory by createdAt descending to avoid composite index error
+            final docs = List<QueryDocumentSnapshot>.from(snapshot.requireData.docs);
+            docs.sort((a, b) {
+              final aData = a.data() as Map<String, dynamic>;
+              final bData = b.data() as Map<String, dynamic>;
+              final aTime = aData['createdAt'] as Timestamp?;
+              final bTime = bData['createdAt'] as Timestamp?;
+              if (aTime == null && bTime == null) return 0;
+              if (aTime == null) return 1;
+              if (bTime == null) return -1;
+              return bTime.compareTo(aTime);
+            });
+
+            final prompts = docs
                 .map((doc) => PromptItem.fromFirestore(doc))
                 .toList();
 

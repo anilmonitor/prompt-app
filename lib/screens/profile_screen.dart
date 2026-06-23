@@ -186,7 +186,7 @@ class ProfileScreen extends StatelessWidget {
                                 color: Color(0xFF6C63FF)),
                           ),
                           title: const Text('App Version'),
-                          trailing: Text('1.0.0',
+                          trailing: Text('1.0.3',
                               style: TextStyle(color: Colors.grey.shade500)),
                         ),
                         Divider(

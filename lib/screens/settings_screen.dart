@@ -210,7 +210,7 @@ class SettingsScreen extends StatelessWidget {
                     showAboutDialog(
                       context: context,
                       applicationName: 'Trendy Baba',
-                      applicationVersion: '1.0.0',
+                      applicationVersion: '1.0.3',
                       applicationLegalese: '© 2026 Anil Monitor',
                       children: [
                         const SizedBox(height: 16),
@@ -253,7 +253,7 @@ class SettingsScreen extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  'Trendy Baba v1.0.0',
+                  'Trendy Baba v1.0.3',
                   style: TextStyle(color: Colors.grey.withValues(alpha: 0.5)),
                 ),
                 const SizedBox(height: 4),
