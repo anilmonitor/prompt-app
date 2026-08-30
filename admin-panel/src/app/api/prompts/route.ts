@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDatabase } from "@/lib/mongodb";
 
+export const dynamic = "force-dynamic";
+
 // Helper for CORS headers
 function corsHeaders() {
   return {

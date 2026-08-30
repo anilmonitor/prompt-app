@@ -1,44 +1,47 @@
 import { MongoClient, Db } from "mongodb";
-import dns from "dns";
 
-try {
-  dns.setServers(["8.8.8.8", "8.8.4.4", "1.1.1.1"]);
-} catch (e) {
-  // Ignored in non-Node environments
-}
+// Standard direct replica set URI fallback if SRV has DNS issues on local network
+export const DEFAULT_MONGODB_URI = 
+  "mongodb://anilarangi6_db_user:iDivTeL6FLG1qBqR@ac-jzecjd8-shard-00-00.nojrybz.mongodb.net:27017,ac-jzecjd8-shard-00-01.nojrybz.mongodb.net:27017,ac-jzecjd8-shard-00-02.nojrybz.mongodb.net:27017/trendy_baba?ssl=true&authSource=admin&retryWrites=true&w=majority";
 
-const uri = process.env.MONGODB_URI || "";
 const options = {};
-
-let client: MongoClient;
-let clientPromise: Promise<MongoClient>;
-
-if (!process.env.MONGODB_URI) {
-  console.warn("Please define the MONGODB_URI environment variable inside .env.local");
-}
 
 declare global {
   // eslint-disable-next-line no-var
   var _mongoClientPromise: Promise<MongoClient> | undefined;
 }
 
-if (process.env.NODE_ENV === "development") {
-  // In development mode, use a global variable so that the value
-  // is preserved across module reloads caused by HMR (Hot Module Replacement).
-  if (!global._mongoClientPromise) {
-    client = new MongoClient(uri, options);
-    global._mongoClientPromise = client.connect();
+let clientPromise: Promise<MongoClient> | null = null;
+
+export async function getMongoClient(): Promise<MongoClient> {
+  const uri = process.env.MONGODB_URI || DEFAULT_MONGODB_URI;
+
+  if (process.env.NODE_ENV === "development") {
+    if (!global._mongoClientPromise) {
+      const client = new MongoClient(uri, options);
+      global._mongoClientPromise = client.connect().catch((err) => {
+        global._mongoClientPromise = undefined;
+        throw err;
+      });
+    }
+    return global._mongoClientPromise;
+  } else {
+    if (!clientPromise) {
+      const client = new MongoClient(uri, options);
+      clientPromise = client.connect().catch((err) => {
+        clientPromise = null;
+        throw err;
+      });
+    }
+    return clientPromise;
   }
-  clientPromise = global._mongoClientPromise;
-} else {
-  // In production mode, it's best to not use a global variable.
-  client = new MongoClient(uri, options);
-  clientPromise = client.connect();
 }
 
-export default clientPromise;
+export default async function getClient() {
+  return getMongoClient();
+}
 
 export async function getDatabase(dbName: string = "trendy_baba"): Promise<Db> {
-  const clientInstance = await clientPromise;
+  const clientInstance = await getMongoClient();
   return clientInstance.db(dbName);
 }

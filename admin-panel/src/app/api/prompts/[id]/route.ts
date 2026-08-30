@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { getDatabase } from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
 
+export const dynamic = "force-dynamic";
+
 function corsHeaders() {
   return {
     "Access-Control-Allow-Origin": "*",
