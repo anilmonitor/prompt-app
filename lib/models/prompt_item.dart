@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class PromptItem {
   final String id;
   final String imageUrl;
@@ -15,14 +13,23 @@ class PromptItem {
     required this.category,
   });
 
-  factory PromptItem.fromFirestore(DocumentSnapshot doc) {
-    Map data = doc.data() as Map<String, dynamic>;
+  factory PromptItem.fromJson(Map<String, dynamic> json) {
     return PromptItem(
-      id: doc.id,
-      imageUrl: data['imageUrl'] ?? '',
-      promptText: data['promptText'] ?? '',
-      title: data['title'] ?? 'Untitled',
-      category: data['category'] ?? 'Uncategorized',
+      id: json['id']?.toString() ?? json['_id']?.toString() ?? '',
+      imageUrl: json['imageUrl']?.toString() ?? '',
+      promptText: json['promptText']?.toString() ?? '',
+      title: json['title']?.toString() ?? 'Untitled',
+      category: json['category']?.toString() ?? 'Uncategorized',
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'imageUrl': imageUrl,
+      'promptText': promptText,
+      'title': title,
+      'category': category,
+    };
   }
 }

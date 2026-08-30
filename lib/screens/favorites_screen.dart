@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import '../services/prompt_service.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:shimmer/shimmer.dart';
@@ -83,11 +83,8 @@ class FavoritesScreen extends StatelessWidget {
             )
           : Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance
-                    .collection('prompts')
-                    .orderBy('createdAt', descending: true)
-                    .snapshots(),
+              child: FutureBuilder<List<PromptItem>>(
+                future: PromptService().getPrompts(),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
                     return const Center(
@@ -98,10 +95,7 @@ class FavoritesScreen extends StatelessWidget {
                     return _buildShimmer(isDark);
                   }
 
-                  final data = snapshot.requireData;
-                  final allPrompts = data.docs
-                      .map((doc) => PromptItem.fromFirestore(doc))
-                      .toList();
+                  final allPrompts = snapshot.data ?? [];
 
                   // Filter out only the favorite prompts
                   final favoritePrompts = allPrompts

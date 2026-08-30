@@ -5,8 +5,8 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Prompt Gallery Admin',
-  description: 'Manage your dynamic AI prompt content',
+  title: 'Trendy Baba - AI Art Prompt Gallery',
+  description: 'Explore curated AI art prompts for Midjourney, ChatGPT, Leonardo AI, and Stable Diffusion.',
 }
 
 export default function RootLayout({

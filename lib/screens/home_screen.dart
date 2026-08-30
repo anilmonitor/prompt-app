@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import '../services/prompt_service.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import '../models/prompt_item.dart';
@@ -23,14 +23,22 @@ class _HomeScreenState extends State<HomeScreen>
   final TextEditingController _searchController = TextEditingController();
   bool _isSearchExpanded = false;
   late AnimationController _searchAnimController;
+  late Future<List<PromptItem>> _promptsFuture;
 
   @override
   void initState() {
     super.initState();
+    _promptsFuture = PromptService().getPrompts();
     _searchAnimController = AnimationController(
       duration: const Duration(milliseconds: 300),
       vsync: this,
     );
+  }
+
+  void _refreshPrompts() {
+    setState(() {
+      _promptsFuture = PromptService().getPrompts(forceRefresh: true);
+    });
   }
 
   @override
@@ -163,11 +171,8 @@ class _HomeScreenState extends State<HomeScreen>
 
           // Main content
           Expanded(
-            child: StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance
-                  .collection('prompts')
-                  .orderBy('createdAt', descending: true)
-                  .snapshots(),
+            child: FutureBuilder<List<PromptItem>>(
+              future: _promptsFuture,
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   return Center(
@@ -179,6 +184,12 @@ class _HomeScreenState extends State<HomeScreen>
                         const SizedBox(height: 16),
                         const Text('Something went wrong',
                             style: TextStyle(fontSize: 16)),
+                        const SizedBox(height: 12),
+                        ElevatedButton.icon(
+                          onPressed: _refreshPrompts,
+                          icon: const Icon(Icons.refresh, size: 18),
+                          label: const Text('Try Again'),
+                        ),
                       ],
                     ),
                   );
@@ -188,10 +199,7 @@ class _HomeScreenState extends State<HomeScreen>
                   return _buildShimmerGrid(isDark);
                 }
 
-                final data = snapshot.requireData;
-                final allPrompts = data.docs
-                    .map((doc) => PromptItem.fromFirestore(doc))
-                    .toList();
+                final allPrompts = snapshot.data ?? [];
 
                 // Extract unique categories
                 final categories = [
@@ -204,8 +212,8 @@ class _HomeScreenState extends State<HomeScreen>
                 return RefreshIndicator(
                   color: Theme.of(context).colorScheme.primary,
                   onRefresh: () async {
-                    // Force re-fetch by waiting a moment
-                    await Future.delayed(const Duration(milliseconds: 500));
+                    _refreshPrompts();
+                    await _promptsFuture;
                   },
                   child: CustomScrollView(
                     physics: const AlwaysScrollableScrollPhysics(),

@@ -215,7 +215,7 @@ class SettingsScreen extends StatelessWidget {
                       children: [
                         const SizedBox(height: 16),
                         const Text(
-                            'A premium gallery of AI Prompts powered by Firebase and Flutter. Designed to inspire creativity.'),
+                            'A premium gallery of AI Prompts powered by MongoDB and Flutter. Designed to inspire creativity.'),
                       ],
                     );
                   },

@@ -1,45 +1,105 @@
-# Miscellaneous
-*.class
-*.log
-*.pyc
-*.swp
-.DS_Store
-.atom/
-.build/
-.buildlog/
-.history
-.svn/
-.swiftpm/
-migrate_working_dir/
+# ==========================================
+# Trendy Baba App - Git Ignore Configuration
+# ==========================================
 
-# IntelliJ related
-*.iml
-*.ipr
-*.iws
-.idea/
+# ------------------------------------------
+# Environment Variables & Secrets
+# ------------------------------------------
+.env
+.env.local
+.env.*.local
+*.env
+*.env.local
 
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
-#.vscode/
+# ------------------------------------------
+# Node.js & Next.js
+# ------------------------------------------
+node_modules/
+**/node_modules/
+.next/
+**/.next/
+out/
+**/out/
+build/
+**/build/
+.vercel
+**/.vercel
+*.tsbuildinfo
+next-env.d.ts
 
-# Flutter/Dart/Pub related
-**/doc/api/
-**/ios/Flutter/.last_build_id
+# NPM / Yarn / PNPM Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+lerna-debug.log*
+
+# ------------------------------------------
+# Flutter / Dart
+# ------------------------------------------
 .dart_tool/
+**/.dart_tool/
+.flutter-plugins
 .flutter-plugins-dependencies
+.packages
 .pub-cache/
 .pub/
-/build/
-/coverage/
+**/build/
+coverage/
 
-# Symbolication related
+# Flutter iOS & macOS
+**/ios/Flutter/.last_build_id
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/flutter_export_environment.sh
+**/ios/Flutter/App.framework
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/Pods/
+**/ios/.symlinks/
+**/ios/Podfile.lock
+**/macos/Pods/
+
+# Android Studio & Gradle
+.gradle/
+**/.gradle/
+local.properties
+**/android/app/debug
+**/android/app/profile
+**/android/app/release
+**/android/key.properties
+**/android/local.properties
+**/android/.gradle
+**/android/captures/
+**/android/gradle/
+!**/android/gradle/wrapper/gradle-wrapper.jar
+
+# Symbolication & Obfuscation
 app.*.symbols
-
-# Obfuscation related
 app.*.map.json
 
-# Android Studio will place build artifacts here
-/android/app/debug
-/android/app/profile
-/android/app/release
+# ------------------------------------------
+# IDEs & Editors
+# ------------------------------------------
+.idea/
+**/.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+**/.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# ------------------------------------------
+# OS Generated Files
+# ------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.swp
+*.swo
+*~

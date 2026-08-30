@@ -222,7 +222,7 @@ class ProfileScreen extends StatelessWidget {
                                 color: Color(0xFF38EF7D)),
                           ),
                           title: const Text('Powered by'),
-                          trailing: Text('Firebase & Flutter',
+                          trailing: Text('MongoDB & Flutter',
                               style: TextStyle(color: Colors.grey.shade500)),
                         ),
                       ],

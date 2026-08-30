@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import '../services/prompt_service.dart';
+import '../models/prompt_item.dart';
 import 'category_prompts_screen.dart';
 
 class CategoriesScreen extends StatelessWidget {
@@ -51,11 +52,8 @@ class CategoriesScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance
-            .collection('prompts')
-            .orderBy('createdAt', descending: true)
-            .snapshots(),
+      body: FutureBuilder<List<PromptItem>>(
+        future: PromptService().getPrompts(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return const Center(child: Text('Something went wrong'));
@@ -65,13 +63,12 @@ class CategoriesScreen extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
 
-          final docs = snapshot.requireData.docs;
+          final prompts = snapshot.data ?? [];
 
           // Build category → count map
           final Map<String, int> categoryCounts = {};
-          for (var doc in docs) {
-            final data = doc.data() as Map<String, dynamic>;
-            final cat = data['category'] ?? 'Uncategorized';
+          for (var p in prompts) {
+            final cat = p.category.isNotEmpty ? p.category : 'Uncategorized';
             categoryCounts[cat] = (categoryCounts[cat] ?? 0) + 1;
           }
 
