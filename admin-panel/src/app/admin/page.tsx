@@ -71,12 +71,18 @@ export default function AdminDashboard() {
 
   const handleLoginSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (loginUsername === "admin" && loginPassword === "trendybaba123") {
+    const validEmail = (process.env.NEXT_PUBLIC_ADMIN_EMAIL || "admin@trendybaba.com").toLowerCase().trim();
+    const validPassword = (process.env.NEXT_PUBLIC_ADMIN_PASSWORD || "12345678").trim();
+    
+    const inputUser = loginUsername.toLowerCase().trim();
+    const inputPass = loginPassword.trim();
+
+    if ((inputUser === validEmail || inputUser === "admin" || inputUser === "admin@trendybaba.com") && inputPass === validPassword) {
       setIsAuthenticated(true);
       sessionStorage.setItem("admin_authenticated", "true");
       setLoginError("");
     } else {
-      setLoginError("Invalid username or password");
+      setLoginError("Invalid email or password");
     }
   };
 
@@ -262,12 +268,12 @@ export default function AdminDashboard() {
             )}
 
             <div className={styles.formGroup}>
-              <label htmlFor="loginUsername">Username</label>
+              <label htmlFor="loginUsername">Email / Username</label>
               <input
                 id="loginUsername"
                 type="text"
                 className={styles.input}
-                placeholder="Enter username"
+                placeholder="Enter admin email (e.g. admin@trendybaba.com)"
                 value={loginUsername}
                 onChange={(e) => setLoginUsername(e.target.value)}
                 required
