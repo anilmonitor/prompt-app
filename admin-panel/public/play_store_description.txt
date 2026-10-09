@@ -3,7 +3,7 @@ TRENDY BABA - GOOGLE PLAY STORE LISTING
 =========================================
 
 -----------------------------------------
-1. SHORT DESCRIPTION (80 / 80 characters)
+1. SHORT DESCRIPTION (90 / 90 characters)
 -----------------------------------------
 Generate beautiful AI photos easily! Copy prompts for Midjourney, Gemini & more.
 
